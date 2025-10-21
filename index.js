@@ -22,29 +22,29 @@ const connection = mysqli.createConnection({
     database: "u459544856_rellway",
 });
 
-connection.connect((err) => {
+app.get("/", (req, res) => {
+    res.send("Welcome to NodeJS API");
+});
+
+app.get("/adduser", (req, res) => {
+    connection.connect((err) => {
     if (!err) {
         console.log("Database connected successfully");
     }else{
         console.log("Database connection failed: " + err.message);
     }
 });
-
-app.get("/", (req, res) => {
-    res.send("Welcome to NodeJS API");
-});
-
-app.get("/adduser", (req, res) => {
-    const {name, age, email, password} = req.body;
+    const {name, email, password} = req.body;
     connection.query("INSERT INTO users (name, email, password) VALUES ('"+name+"', '"+email+"', '"+password+"')", (err, results) => {
         if (!err) {
             res.status(200).json({message: "user is added successfully", details: results });
+            connection.end();
         }else{
             res.status(500).json({ error: "Database insertion failed: " + err.message });
+            connection.end();
         }
 });
 });
-
 // var tokens = [];
 
 // app.post("/user", async (req, res) => {
@@ -257,6 +257,7 @@ app.get("/adduser", (req, res) => {
 //         "<h1>age "+req.params.age+"</h1>"
 //     );
 // });
+
 
 
 
