@@ -34,6 +34,17 @@ app.get("/", (req, res) => {
     res.send("Welcome to NodeJS API");
 });
 
+app.get("/adduser", (req, res) => {
+    const {name, age, email, password} = req.body;
+    connection.query("INSERT INTO users (name, age, email, password) VALUES ('"+name+"', '"+age+"', '"+email+"', '"+password+"')", (err, results) => {
+        if (!err) {
+            res.status(200).json({message: "user is added successfully", details: results });
+        }else{
+            res.status(500).json({ error: "Database insertion failed: " + err.message });
+        }
+});
+});
+
 // var tokens = [];
 
 // app.post("/user", async (req, res) => {
@@ -246,3 +257,4 @@ app.get("/", (req, res) => {
 //         "<h1>age "+req.params.age+"</h1>"
 //     );
 // });
+
