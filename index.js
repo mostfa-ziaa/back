@@ -16,10 +16,10 @@ app.listen(port, () =>{
 });
 
 const connection = mysqli.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "nodejs_api",
+    host: "srv1973.hstgr.io",
+    user: "u459544856_mustafa",
+    password: "oU+liCuhC&5",
+    database: "u459544856_rellway",
 });
 
 connection.connect((err) => {
@@ -28,6 +28,10 @@ connection.connect((err) => {
     }else{
         console.log("Database connection failed: " + err.message);
     }
+});
+
+app.get("/", (req, res) => {
+    res.send("Welcome to NodeJS API");
 });
 
 // var tokens = [];
